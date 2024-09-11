@@ -1,11 +1,11 @@
 def change_case(func):
     def inner(str):
-        x_string = func(str)
+        x = func(str)
         
-        if x_string.islower():
-            return x_string.upper
-        elif x_string.isupper():
-            return x_string.lower
+        if x.islower():
+            return x.upper
+        elif x.isupper():
+            return x.lower
     return inner
             
 
