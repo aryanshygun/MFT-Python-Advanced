@@ -9,7 +9,7 @@ def outer_outer_authentication(stored_data):
         return inner_authentication
     return outer_authentication
 
-userId = input('enter your id')
+userId = input( 'enter your id')
 userKey = input('enter your key')
 stored_data = {"username" : "admin", "password" : "secret"}
 
