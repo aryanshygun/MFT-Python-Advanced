@@ -1,0 +1,70 @@
+import json
+
+class Exam:
+
+    def __init__(self):
+        self.active = None
+        self.score = 0
+
+    def read_users_data(self):
+        with open('users.json', "r") as infile:
+            return json.load(infile)
+
+    def read_questions(self):
+        with open('questions.json', "r") as infile:
+            return json.load(infile)
+        
+    def write_users_data(self, data):
+        with open('users.json', "w") as outfile:
+            json.dump(data, outfile, indent=4)
+
+    def login(self):
+        
+        users_data = self.read_users_data()
+        
+        while True:
+            ans = input("Enter your name & pass:\n").split()
+
+            if ans[0] in users_data and users_data[ans[0]]["password"] == ans[1]:
+                print("Congrats, You're in")
+                self.active = ans[0]
+                self.quiz()
+                break
+            else:
+                print("wrong, try again")
+
+    def quiz(self):
+        print("--------------------------------------------------")
+        print("--------------------------------------------------")
+        print(f"Logged in user: {self.active}")
+        print("answer the following questions")
+        questions = self.read_questions()
+        self.score = 0
+        for i,j in questions.items():
+            print(i)
+            print(j["text"])
+            user_answer = int(input())
+            if j["ans"] == user_answer:
+                self.score += 10
+        print('finished')
+        print('Here is your score:\n')
+        print(self.score)
+        self.update_score()
+
+
+    def update_score(self):
+        users_data = self.read_users_data()
+        
+        users_data[self.active]['score'] = self.score
+        self.write_users_data(users_data)
+
+        
+        
+
+
+app = Exam()
+app.login()
+
+if __name__ == "__main__":
+    app = Exam()
+    app.login()
